@@ -1,5 +1,5 @@
 {
-  "name": "hr-assistant-violentmonkey",
+  "name": "hr-assistant-monkey",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,8 +13,6 @@
   },
   "devDependencies": {
     "@unocss/eslint-config": "^0.51.4",
-    "@unocss/preset-attributify": "^0.51.4",
-    "@unocss/transformer-directives": "^0.51.4",
     "@vitejs/plugin-vue": "^4.1.0",
     "typescript": "^5.0.2",
     "unocss": "^0.51.4",
