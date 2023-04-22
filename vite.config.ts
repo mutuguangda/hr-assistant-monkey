@@ -22,7 +22,6 @@ export default defineConfig({
       build: {
         externalGlobals: {
           vue: cdn.jsdelivr('Vue', 'dist/vue.global.prod.js'),
-          iconify: cdn.jsdelivr('iconify', '3/3.1.0/iconify.min.js')
         },
       },
     }),
