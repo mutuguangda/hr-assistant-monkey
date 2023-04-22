@@ -1,0 +1,25 @@
+{
+  "name": "hr-assistant-violentmonkey",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@unocss/eslint-config": "^0.51.4",
+    "@unocss/preset-attributify": "^0.51.4",
+    "@unocss/transformer-directives": "^0.51.4",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "typescript": "^5.0.2",
+    "unocss": "^0.51.4",
+    "vite": "^4.2.1",
+    "vite-plugin-monkey": "^3.1.1",
+    "vue-tsc": "^1.2.0"
+  }
+}
