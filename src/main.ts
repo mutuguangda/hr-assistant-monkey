@@ -21,7 +21,7 @@ setTimeout(() => {
       return app;
     })(),
   );
-}, 2000)
+}, 5000)
 
 function setStyle(element: HTMLElement, style: Partial<CSSStyleDeclaration>) {
   Object.keys(style).forEach(key => {
