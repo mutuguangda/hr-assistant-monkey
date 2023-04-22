@@ -2,8 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@unocss/eslint-config': ^0.51.4
-  '@unocss/preset-attributify': ^0.51.4
-  '@unocss/transformer-directives': ^0.51.4
   '@vitejs/plugin-vue': ^4.1.0
   typescript: ^5.0.2
   unocss: ^0.51.4
@@ -17,8 +15,6 @@ dependencies:
 
 devDependencies:
   '@unocss/eslint-config': 0.51.4_typescript@5.0.4
-  '@unocss/preset-attributify': 0.51.4
-  '@unocss/transformer-directives': 0.51.4
   '@vitejs/plugin-vue': 4.1.0_vite@4.2.1+vue@3.2.47
   typescript: 5.0.4
   unocss: 0.51.4_vite@4.2.1
