@@ -135,7 +135,7 @@ function sleep(t: number, fn: ((...args: any[]) => any) | undefined = undefined)
 
 function setStyle(element: HTMLElement, style: Partial<CSSStyleDeclaration>) {
   Object.keys(style).forEach(key => {
-    element.style[key] = style[key]
+    (element.style as Record<string, any>)[key] = (style as Record<string, any>)[key]
   })
 }
 
