@@ -16,7 +16,6 @@ export default defineConfig({
         namespace: 'npm/vite-plugin-monkey',
         match: [
           'https://www.zhipin.com/web/chat/recommend',
-          'https://www.google.com/*'
         ],
       },
       build: {
