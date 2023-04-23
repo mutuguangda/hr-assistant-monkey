@@ -50,7 +50,7 @@ async function greet() {
       const curr = recommentList[i]
 
       scroll((curr as HTMLElement).offsetTop)
-
+      await sleep(0.2 * i)
       // return
       const html = curr.innerHTML
       let keywords = greetParams.keywords.split('、')
@@ -78,7 +78,7 @@ async function greet() {
         // TODO: 打招呼
         try {
           button.click()
-          await sleep(0.5 * i)
+          await sleep(0.3 * i)
           const dialog = document.querySelector('div.dialog-wrap.active[data-type="boss-dialog"]')
           if (dialog) {
             greetRecord.value.push('招呼数已达上限！')
