@@ -17,10 +17,15 @@ const greetParams = reactive({
   keywords: ''
 })
 const greetRecord = ref<any[]>([])
+setInterval(() => {
+  greetRecord.value.push('123')
+}, 1000)
 const greetRecordWrapper = ref<HTMLElement>()
-watch(greetRecord, () => {
-  greetRecordWrapper.value?.scrollTo({ top: greetRecordWrapper.value.offsetHeight })
-})
+watch(() => greetRecord, () => {
+  // console.log('greetRecord',greetRecord)
+  console.log('greetRecordWrapper.value', greetRecordWrapper.value)
+  greetRecordWrapper.value?.scrollTo({ top: greetRecordWrapper.value.scrollHeight, behavior: 'smooth' })
+}, { deep: true })
 const greetPerson = ref<any[]>([])
 
 const { content, send, messages } = useChat()
@@ -95,7 +100,7 @@ async function greet() {
         }
 
         const resumeWrapper = curr.querySelector('div > div')
-        console.log('resumeWrapper', resumeWrapper)
+        // console.log('resumeWrapper', resumeWrapper)
         greetPerson.value.push({ keywords, element: curr, name, event: (resumeWrapper as HTMLElement).click, index: i, resumeWrapper })
         // await sleep(i)
         currentGreetNum++
@@ -231,7 +236,7 @@ function openResume(index: number) {
 
     <!-- index === 1 -->
     <div v-show="activeIndex === 1">
-      <div class="record-container h-[calc(100vh-180px)] overflow-auto p-10px">
+      <div class="record-container h-[calc(100vh-180px)] overflow-auto p-10px" ref="greetRecordWrapper">
         <div v-if="greetRecord.length === 0" class="flex flex-col justify-center items-start gap-10px h-full">
           <div class="text-32px mx-auto mb-10px">
             🐻
@@ -243,7 +248,7 @@ function openResume(index: number) {
           <div class="px-20px">2. 右输入框可以设置关键词，如需设置多个关键词请用、分隔</div>
           <div class="px-20px">3. 点击 Greet，熊熊将为你做牛做马（指打招呼 🙈）！</div>
         </div>
-        <div v-else v-for="message in greetRecord" class="shadow rounded-8px overflow-hidden mb-10px px-7px py-4px" ref="greetRecordWrapper">
+        <div v-else v-for="message in greetRecord" class="shadow rounded-8px overflow-hidden mb-10px px-7px py-4px">
           <div>
             <span class="text-20px leading-24px select-none">🐻</span>
             <span class="font-bold select-none">: </span>
