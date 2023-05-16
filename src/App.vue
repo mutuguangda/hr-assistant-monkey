@@ -3,11 +3,14 @@
  * @Description: 
 -->
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { useChat } from './openai';
+import { GM_getValue, GM_setValue } from '$';
 
 const message = ref('')
 const mutuguangda = ref('一键打招呼 by mutuguangda')
+const isHasApiKey = computed(() => !!GM_getValue('apiKey'))
+const apiKey = ref()
 
 const greetParams = reactive({
   num: 20,
@@ -165,6 +168,30 @@ function openResume(index: number) {
 
     <!-- index === 0 -->
     <div v-show="activeIndex === 0">
+
+      <div v-if="!isHasApiKey" class="record-container h-[calc(100vh-180px)] overflow-auto p-10px">
+        <div v-if="messages.length === 0" class="flex flex-col justify-center items-start gap-10px h-full">
+          <div class="text-32px mx-auto mb-10px">
+            🤖
+          </div>
+          <div class="mtgd-btn cursor-default mx-auto">我是 Chatgpt，来聊天吧！</div>
+          <div class="mx-auto">✨ 使用步骤如下：</div>
+          <div class="px-20px">1. 请在下方输入框填写你的 openai key</div>
+          <div class="px-20px">2. 点击确定后即可开始聊天</div>
+        </div>
+      </div>
+      <div v-else class="record-container h-[calc(100vh-180px)] overflow-auto p-10px">
+        <div v-if="messages.length === 0" class="flex flex-col justify-center items-start gap-10px h-full">
+          <div class="text-32px mx-auto mb-10px">
+            🤖
+          </div>
+          <div class="mtgd-btn cursor-default mx-auto">我是 Chatgpt，来聊天吧！</div>
+          <div class="mx-auto">✨ 你可以跟我聊啥：</div>
+          <div class="px-20px">1. 你想不到的，想得到的，都可以问我</div>
+          <div class="px-20px">2. 我猜测你应该是一个 HR，你可以问我招聘相关的知识</div>
+        </div>
+      </div>
+
       <div class="message-container h-[calc(100vh-180px)] overflow-auto p-10px">
         <div v-for="message in messages" class="shadow rounded-8px overflow-hidden mb-10px px-7px py-4px">
           <div>
@@ -174,7 +201,17 @@ function openResume(index: number) {
           </div>
         </div>
       </div>
-      <div class="absolute left-0 bottom-0 box-border">
+      <div v-if="!isHasApiKey" class="absolute left-0 bottom-0 box-border">
+        <div class="flex items-center gap-8px px-10px pb-10px">
+          <!-- Q: input 设置 flex: 1 不能自由伸缩 -->
+          <input v-model="apiKey" class="focus:border-[#00bebd]" w="100%" px="8px" py="3px" rounded="4px" text="[#999999]"
+            border="1px [#eeeeee]" @keyup.enter="GM_setValue('apiKey', apiKey)" />
+          <button class="mtgd-btn" @click="GM_setValue('apiKey', apiKey)">
+            Confirm
+          </button>
+        </div>
+      </div>
+      <div v-else class="absolute left-0 bottom-0 box-border">
         <div class="flex items-center gap-8px px-10px pb-10px">
           <!-- Q: input 设置 flex: 1 不能自由伸缩 -->
           <input v-model="message" class="focus:border-[#00bebd]" w="100%" px="8px" py="3px" rounded="4px"
@@ -194,7 +231,7 @@ function openResume(index: number) {
 
     <!-- index === 1 -->
     <div v-show="activeIndex === 1">
-      <div class="record-container h-[calc(100vh-180px)] overflow-auto p-10px" ref="greetRecordWrapper">
+      <div class="record-container h-[calc(100vh-180px)] overflow-auto p-10px">
         <div v-if="greetRecord.length === 0" class="flex flex-col justify-center items-start gap-10px h-full">
           <div class="text-32px mx-auto mb-10px">
             🐻
@@ -206,12 +243,13 @@ function openResume(index: number) {
           <div class="px-20px">2. 右输入框可以设置关键词，如需设置多个关键词请用、分隔</div>
           <div class="px-20px">3. 点击 Greet，熊熊将为你做牛做马（指打招呼 🙈）！</div>
         </div>
-        <div v-else v-for="message in greetRecord" class="shadow rounded-8px overflow-hidden mb-10px px-7px py-4px">
+        <div v-else v-for="message in greetRecord" class="shadow rounded-8px overflow-hidden mb-10px px-7px py-4px" ref="greetRecordWrapper">
           <div>
             <span class="text-20px leading-24px select-none">🐻</span>
             <span class="font-bold select-none">: </span>
             <span class="text-14px leading-24px" v-if="typeof message === 'string'">{{ message }}</span>
-            <span v-if="typeof message !== 'string'">总计打了{{ greetPerson.length }}个招呼，以下是人选记录：{{ greetPerson.length ? '': '无' }}</span>
+            <span v-if="typeof message !== 'string'">总计打了{{ greetPerson.length }}个招呼，以下是人选记录：{{ greetPerson.length ? '' :
+              '无' }}</span>
             <div v-if="typeof message !== 'string'" v-for="person in message" class="flex items-center gap-4px">
               <span>{{ person.name }}</span>
               <span>{{ person.keywords.join('、') }}</span>
@@ -242,7 +280,7 @@ function openResume(index: number) {
 
 <style>
 .mtgd-btn {
-  @apply cursor-pointer rounded-4px px-10px py-5px flex items-center border-none bg-[#F2F4F7] whitespace-nowrap hover:(text-[#00A6A7] bg-[#E5FAF8]);
+  @apply cursor-pointer rounded-4px px-10px py-5px flex items-center border-none bg-[#F2F4F7] whitespace-nowrap hover: (text-[#00A6A7] bg-[#E5FAF8]);
 }
 
 .record-container div:last-child {

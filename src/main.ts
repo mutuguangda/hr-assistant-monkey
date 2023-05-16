@@ -2,8 +2,6 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import 'virtual:uno.css'
 
-console.log('main.ts init')
-
 setTimeout(() => {
   createApp(App).mount(
     (() => {

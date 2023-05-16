@@ -1,9 +1,11 @@
+import { GM_getValue } from "$"
 import { ref } from "vue"
 
 export const useChat = () => {
   const content = ref<string>('')
 
-  const apiKey = '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'
+  // const apiKey = 'sk-Y58iJCcl1FQl02uAa T1YT3BlbkFJ2f6ZyQBj1cPMKxBDSzaf'
+  const apiKey = GM_getValue('apiKey')
   const messages = ref<any[]>([])
 
   function generatePayload(messages: any[]) {
