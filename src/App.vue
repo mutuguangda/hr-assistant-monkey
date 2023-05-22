@@ -171,8 +171,8 @@ function openResume(index: number) {
     <!-- index === 0 -->
     <div v-show="activeIndex === 0">
 
-      <div v-if="!isHasApiKey" class="record-container h-[calc(100vh-180px)] overflow-auto p-10px">
-        <div v-if="messages.length === 0" class="flex flex-col justify-center items-start gap-10px h-full">
+      <div v-if="!isHasApiKey && messages.length === 0" class="record-container h-[calc(100vh-180px)] overflow-auto p-10px">
+        <div class="flex flex-col justify-center items-start gap-10px h-full">
           <div class="text-32px mx-auto mb-10px">
             🤖
           </div>
@@ -182,8 +182,9 @@ function openResume(index: number) {
           <div class="px-20px">2. 点击确定后即可开始聊天</div>
         </div>
       </div>
-      <div v-else class="record-container h-[calc(100vh-180px)] overflow-auto p-10px">
-        <div v-if="messages.length === 0" class="flex flex-col justify-center items-start gap-10px h-full">
+
+      <div v-if="isHasApiKey && messages.length === 0" class="record-container h-[calc(100vh-180px)] overflow-auto p-10px">
+        <div class="flex flex-col justify-center items-start gap-10px h-full">
           <div class="text-32px mx-auto mb-10px">
             🤖
           </div>
