@@ -17,9 +17,6 @@ const greetParams = reactive({
   keywords: ''
 })
 const greetRecord = ref<any[]>([])
-setInterval(() => {
-  greetRecord.value.push('123')
-}, 1000)
 const greetRecordWrapper = ref<HTMLElement>()
 watch(() => greetRecord, () => {
   // console.log('greetRecord',greetRecord)
